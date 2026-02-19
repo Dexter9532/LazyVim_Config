@@ -23,7 +23,7 @@
   "mini.ai": { "branch": "main", "commit": "b0247752cf629ce7c6bd0a1efd82fb58ff60f9d6" },
   "mini.icons": { "branch": "main", "commit": "68c178e0958d95b3977a771f3445429b1bded985" },
   "mini.pairs": { "branch": "main", "commit": "4089aa6ea6423e02e1a8326a7a7a00159f6f5e04" },
-  "neogit": { "branch": "master", "commit": "df323856553d4c5e5c41117606c63f628b24a3b0" },
+  "neogit": { "branch": "master", "commit": "22433eae87236c217e0810c836fa5e529c043d4c" },
   "noice.nvim": { "branch": "main", "commit": "7bfd942445fb63089b59f97ca487d605e715f155" },
   "nui.nvim": { "branch": "main", "commit": "de740991c12411b663994b2860f1a4fd0937c130" },
   "nvim-cursorline": { "branch": "main", "commit": "d4425a9ba73a66fca8a34fda9254eb8949b1784d" },

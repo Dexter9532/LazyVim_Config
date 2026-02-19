@@ -37,6 +37,7 @@ return {
   -- Colorscheme
   {
     "Mofiqul/vscode.nvim",
+    enabled = false,
     lazy = false,
     priority = 1000,
     config = function()
@@ -49,7 +50,7 @@ return {
   },
   {
     "LazyVim/LazyVim",
-    opts = { colorscheme = "vscode" },
+    opts = { colorscheme = "retrobox" },
   },
 
   -- Copilot chat
