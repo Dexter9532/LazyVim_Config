@@ -4,8 +4,8 @@ This repository contains my personal Neovim (LazyVim) configuration.
 
 ## Requirements
 
-* Neovim
-* Git
+- Neovim
+- Git
 
 ## Installation
 
@@ -38,3 +38,9 @@ cd ~/.config/nvim
 git pull
 ```
 
+## LazyVim Tools
+
+This commandos can be executed from neovim cmd-line using `:`
+
+- Mason (Plugin installer)
+- Lazy (See installed plugins, update, turn off plugins)
