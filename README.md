@@ -85,3 +85,11 @@ So if formatting output changes, check this file first.
 To change theme quickly inside Neovim, use:
 
 - `<leader>ct` (opens Telescope colorscheme picker)
+
+## Header
+
+To change the startup header text/art, edit:
+
+- `lua/plugins/all.lua`
+
+Look for the `Dashboard branding` block (`folke/snacks.nvim`) and update `dashboard.preset.header`.

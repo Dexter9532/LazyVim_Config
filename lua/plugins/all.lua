@@ -1,4 +1,23 @@
 return {
+  -- Dashboard branding
+  {
+    "folke/snacks.nvim",
+    opts = {
+      dashboard = {
+        preset = {
+          header = [[
+██████╗  ██████╗ ██████╗  ██████╗ ██╗   ██╗██╗███╗   ███╗
+██╔══██╗██╔═══██╗██╔══██╗██╔═══██╗██║   ██║██║████╗ ████║
+██████╔╝██║   ██║██████╔╝██║   ██║██║   ██║██║██╔████╔██║
+██╔══██╗██║   ██║██╔══██╗██║   ██║╚██╗ ██╔╝██║██║╚██╔╝██║
+██████╔╝╚██████╔╝██████╔╝╚██████╔╝ ╚████╔╝ ██║██║ ╚═╝ ██║
+╚═════╝  ╚═════╝ ╚═════╝  ╚═════╝   ╚═══╝  ╚═╝╚═╝     ╚═╝
+          ]],
+        },
+      },
+    },
+  },
+
   -- Auto save
   {
     "pocco81/auto-save.nvim",
@@ -176,7 +195,7 @@ return {
       opts.formatters_by_ft.yaml = { "prettier" }
       opts.formatters_by_ft.html = { "prettier" }
       opts.formatters_by_ft.css = { "prettier" }
-      opts.formatters_by_ft.markdown = { "prettier" }
+      opts.formatters_by_ft.markdown = {}
     end,
   },
 
