@@ -15,24 +15,6 @@ return {
   },
 
   ---------------------------------------------------------------------------
-  -- 💨 Smooth scroll (låter texten flyta när du hoppar)
-  ---------------------------------------------------------------------------
-  {
-    "nvim-mini/mini.animate",
-    version = false,
-    event = "VeryLazy",
-    config = function()
-      require("mini.animate").setup({
-        cursor = { enable = false },
-        scroll = {
-          enable = true,
-          timing = require("mini.animate").gen_timing.cubic({ duration = 150 }),
-        },
-      })
-    end,
-  },
-
-  ---------------------------------------------------------------------------
   -- 💡 Highlight raden och ordet du står på
   ---------------------------------------------------------------------------
   {

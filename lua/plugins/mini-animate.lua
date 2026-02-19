@@ -1,4 +1,2 @@
-return {
-  "nvim-mini/mini.animate",
-  enabled = false,
-}
+-- kept intentionally empty to avoid conflicting with plugins/visuals.lua
+return {}
