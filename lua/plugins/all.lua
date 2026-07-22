@@ -3,6 +3,26 @@ return {
   {
     "folke/snacks.nvim",
     opts = {
+      explorer = {
+        replace_netrw = true,
+      },
+      picker = {
+        sources = {
+          explorer = {
+            auto_close = false,
+            focus = "list",
+            jump = { close = false },
+            layout = {
+              preset = "sidebar",
+              preview = false,
+              layout = {
+                position = "left",
+                width = 40,
+              },
+            },
+          },
+        },
+      },
       dashboard = {
         preset = {
           header = [[
@@ -14,6 +34,70 @@ return {
 ╚═════╝  ╚═════╝ ╚═════╝  ╚═════╝   ╚═══╝  ╚═╝╚═╝     ╚═╝
           ]],
         },
+      },
+    },
+    keys = {
+      {
+        "<leader>e",
+        function()
+          local picker = Snacks.picker.get({ source = "explorer" })[1]
+          if picker then
+            local current = vim.api.nvim_get_current_win()
+            local list = picker.list and picker.list.win and picker.list.win.win
+
+            if current == list then
+              local main = picker.main
+              if main and vim.api.nvim_win_is_valid(main) and main ~= current then
+                vim.api.nvim_set_current_win(main)
+              else
+                vim.cmd("wincmd p")
+              end
+              return
+            end
+
+            picker:focus("list", { show = true })
+            return
+          end
+
+          picker = Snacks.explorer.reveal()
+          if picker then
+            vim.schedule(function()
+              picker:focus("list", { show = true })
+            end)
+          end
+        end,
+        desc = "Explorer Snacks (reveal)",
+      },
+      {
+        "<leader>E",
+        function()
+          local picker = Snacks.picker.get({ source = "explorer" })[1]
+          if picker then
+            local current = vim.api.nvim_get_current_win()
+            local list = picker.list and picker.list.win and picker.list.win.win
+
+            if current == list then
+              local main = picker.main
+              if main and vim.api.nvim_win_is_valid(main) and main ~= current then
+                vim.api.nvim_set_current_win(main)
+              else
+                vim.cmd("wincmd p")
+              end
+              return
+            end
+
+            picker:focus("list", { show = true })
+            return
+          end
+
+          picker = Snacks.explorer()
+          if picker then
+            vim.schedule(function()
+              picker:focus("list", { show = true })
+            end)
+          end
+        end,
+        desc = "Explorer Snacks (cwd)",
       },
     },
   },
@@ -183,6 +267,60 @@ return {
     end,
   },
 
+  -- LSP
+  {
+    "neovim/nvim-lspconfig",
+    opts = function(_, opts)
+      opts.servers = opts.servers or {}
+
+      local function find_compile_commands(root)
+        local candidates = {
+          "compile_commands.json",
+          "build/compile_commands.json",
+          "build/*/compile_commands.json",
+          "build/*/*/compile_commands.json",
+          "tests/build/compile_commands.json",
+          "tests/build/*/compile_commands.json",
+          "tests/build/*/*/compile_commands.json",
+        }
+
+        for _, pattern in ipairs(candidates) do
+          local matches = vim.fn.glob(root .. "/" .. pattern, false, true)
+          if #matches > 0 then
+            return vim.fn.fnamemodify(matches[1], ":h")
+          end
+        end
+      end
+
+      opts.servers.clangd = vim.tbl_deep_extend("force", opts.servers.clangd or {}, {
+        cmd = {
+          "clangd",
+          "--background-index",
+          "--completion-style=detailed",
+          "--header-insertion=never",
+          "--query-driver=/home/bobo/ncs/toolchains/**",
+        },
+        on_new_config = function(config, root_dir)
+          local compile_dir = find_compile_commands(root_dir)
+          if compile_dir then
+            table.insert(config.cmd, "--compile-commands-dir=" .. compile_dir)
+          end
+        end,
+        handlers = {
+          ["textDocument/publishDiagnostics"] = function() end,
+        },
+      })
+
+      vim.diagnostic.config({
+        severity_sort = true,
+        virtual_text = {
+          spacing = 2,
+          source = "if_many",
+        },
+      })
+    end,
+  },
+
   -- Formatting
   {
     "stevearc/conform.nvim",
@@ -196,7 +334,7 @@ return {
       opts.formatters_by_ft.yaml = { "prettier" }
       opts.formatters_by_ft.html = { "prettier" }
       opts.formatters_by_ft.css = { "prettier" }
-      opts.formatters_by_ft.markdown = {}
+      opts.formatters_by_ft.markdown = { "prettier" }
     end,
   },
 
